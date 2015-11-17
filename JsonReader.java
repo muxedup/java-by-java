@@ -1,3 +1,12 @@
+//
+//  JsonReader.java
+//  java-by-java
+//
+//  Created by Munan Xu on 2015-11-16.
+//  Copyright 2015 Munan Xu. All rights reserved.
+//
+//	Example code that reads a JSON array from a localhost running ngrok
+//	Prints out the associated public address for the ngrok client
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,6 +17,7 @@ import java.nio.charset.Charset;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONArray;
 
 public class JsonReader {
 
@@ -34,7 +44,9 @@ public class JsonReader {
 
   public static void main(String[] args) throws IOException, JSONException {
     JSONObject json = readJsonFromUrl("http://localhost:4040/api/tunnels");
-    System.out.println(json.toString());
-    System.out.println(json.get("PublicURL"));
+    JSONObject ngrokTunnels = json.getJSONArray("tunnels").getJSONObject(1);
+	//System.out.println(json.toString());
+	
+    System.out.println(ngrokTunnels.get("public_url"));
   }
 }
